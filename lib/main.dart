@@ -24,8 +24,6 @@ class _HomeState extends State<Home> {
 
   void calcular() {
     setState(() {
-      String alunoStatus;
-
       const pesoAP = 25;
       const pesoPV = 10;
       const pesoEV = 15;
@@ -51,15 +49,10 @@ class _HomeState extends State<Home> {
       } else {
         alunoStatus = "Reprovado";
       }
-      _notasDoAluno.add("\n");
-      _notasDoAluno.add(alunoStatus);
-      _notasDoAluno.add(disciplina + " Notas: ");
-      _notasDoAluno.add("AP ${notaAP}");
-      _notasDoAluno.add("PV ${notaPV}");
-      _notasDoAluno.add("EV ${notaEV}");
-      _notasDoAluno.add("PP ${notaPP}");
-      _notasDoAluno.add(" Media Ponderada ${notafinal}");
-      _notasDoAluno.add("\n");
+
+
+      notasAluno = notasAluno + ("\nDisciplina: ${disciplina.toString().toUpperCase()}\nNotas: AP ${notaAP}, PV ${notaPV}, EV ${notaEV}, PP ${notaPP} Média Ponderada ${notafinal}\nSituação: ${alunoStatus}\n");
+
 
       mediaT.add(notafinal);
       counter++;
@@ -85,7 +78,7 @@ class _HomeState extends State<Home> {
 
   void _refreshAll() {
     setState(() {
-      _notasDoAluno.clear();
+      notasAluno = "";
       mediaT.clear();
       somamedias = 0;
       counter--;
@@ -96,10 +89,12 @@ class _HomeState extends State<Home> {
     });
   }
 
-  List<dynamic> _notasDoAluno = [];
+
   List<double> mediaT = [];
   var counter = 0;
   dynamic somamedias = 0;
+  String notasAluno = "";
+  String alunoStatus = "";
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +229,7 @@ class _HomeState extends State<Home> {
                               crossAxisCount: 1,
                             ),
                             itemBuilder: (context, index) {
-                              return Text("${_notasDoAluno}");
+                              return Text("${notasAluno}");
                             },
                           ),
                         ),
